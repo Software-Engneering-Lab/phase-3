@@ -1,0 +1,252 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Campus Exchange Use Cases</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: two columns of use cases inside the system boundary, actors outside on both sides, orthogonal colour-coded lines. */
+:root{
+  --bg:#f5f6f8; --panel:#fbfcfd; --edge:#c9ced8; --oval:#eceef3; --oval-line:#7a8191; --oval-opt:#f4f5f8;
+  --fg:#1c2330; --muted:#5d6676; --link-dim:.07;
+  --c-sa:#6f736f; --c-ac:#169474; --c-dr:#2c78dc; --c-rq:#d4522a; --c-ms:#b0710c;
+  --c-ai:#7a65d4; --c-ua:#cc3f6c; --c-so:#5a9418; --c-pf:#d94545;
+  --font:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12151b; --panel:#171b23; --edge:#343b49; --oval:#242a35; --oval-line:#8a93a6; --oval-opt:#1d222c;
+  --fg:#e7eaf0; --muted:#98a1b3; --link-dim:.1;
+  --c-sa:#a3a8a3; --c-ac:#38c79f; --c-dr:#5b9cf5; --c-rq:#f07a53; --c-ms:#e0a03a;
+  --c-ai:#9d8bf0; --c-ua:#ee6c95; --c-so:#8cc84a; --c-pf:#f26a6a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151b; --panel:#171b23; --edge:#343b49; --oval:#242a35; --oval-line:#8a93a6; --oval-opt:#1d222c;
+  --fg:#e7eaf0; --muted:#98a1b3; --link-dim:.1;
+  --c-sa:#a3a8a3; --c-ac:#38c79f; --c-dr:#5b9cf5; --c-rq:#f07a53; --c-ms:#e0a03a;
+  --c-ai:#9d8bf0; --c-ua:#ee6c95; --c-so:#8cc84a; --c-pf:#f26a6a; color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--font);
+  padding-block:16px 28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1360px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+#info{min-height:2.9em;font-size:15px;line-height:1.45;color:var(--muted);margin:0;max-width:1000px}
+#info b{color:var(--fg);font-weight:600}
+.scroller{overflow-x:auto;border-radius:10px}
+svg{display:block;width:100%;min-width:860px;height:auto;font-family:var(--font)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:14px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:10px}
+.legend svg{min-width:0;width:44px;height:20px}
+
+.boundary{fill:var(--panel);stroke:var(--edge);stroke-width:2}
+.sys{fill:var(--fg);font-weight:600;font-size:23px;text-anchor:middle}
+.link{fill:none;stroke:var(--c);stroke-linecap:round;stroke-linejoin:round;transition:opacity .15s}
+.link.p{stroke-width:3.4}.link.s{stroke-width:1.8}
+.oval{fill:var(--oval);stroke:var(--oval-line);stroke-width:1.4}
+.opt .oval{fill:var(--oval-opt);stroke-dasharray:6 5}
+.uc-id{fill:var(--fg);font-weight:600;font-size:17px;text-anchor:middle}
+.uc-tx{fill:var(--fg);font-size:14.5px;text-anchor:middle;opacity:.88}
+.ext{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 4;fill:none}
+.ext-tx{fill:var(--muted);font-size:13px;paint-order:stroke;stroke:var(--panel);stroke-width:5px}
+.fig{stroke:var(--c);stroke-width:2.6;fill:none;stroke-linecap:round}
+.fig .head{fill:var(--panel)}
+.act-tx{fill:var(--c);font-size:15.5px;text-anchor:middle;font-weight:500}
+.node{cursor:pointer;transition:opacity .15s}
+.node:focus{outline:none}
+.node:focus-visible .hit{stroke:var(--fg);stroke-width:2;stroke-dasharray:4 3}
+.hit{fill:transparent;stroke:none}
+.iso .link{opacity:var(--link-dim)} .iso .link.on{opacity:1}
+.iso .node{opacity:.3} .iso .node.on{opacity:1}
+.a-sa{--c:var(--c-sa)}.a-ac{--c:var(--c-ac)}.a-dr{--c:var(--c-dr)}.a-rq{--c:var(--c-rq)}.a-ms{--c:var(--c-ms)}
+.a-ai{--c:var(--c-ai)}.a-ua{--c:var(--c-ua)}.a-so{--c:var(--c-so)}.a-pf{--c:var(--c-pf)}
+@media (prefers-reduced-motion:reduce){.link,.node{transition:none}}
+</style>
+
+<div class="wrap">
+  <p id="info" aria-live="polite"></p>
+  <div class="scroller"><svg id="d" viewBox="0 0 1340 1500" role="img" aria-label="Use-case diagram for the Circular Campus Resource Exchange system"></svg></div>
+  <div class="legend">
+    <span><svg viewBox="0 0 44 20"><line x1="2" y1="10" x2="42" y2="10" stroke="var(--fg)" stroke-width="3.4" stroke-linecap="round"/></svg>Primary actor</span>
+    <span><svg viewBox="0 0 44 20"><line x1="2" y1="10" x2="42" y2="10" stroke="var(--fg)" stroke-width="1.8" stroke-linecap="round"/></svg>Supporting actor</span>
+    <span><svg viewBox="0 0 44 20"><ellipse cx="22" cy="10" rx="20" ry="8" fill="var(--oval-opt)" stroke="var(--oval-line)" stroke-dasharray="4 3"/></svg>Optional &laquo;extend&raquo; use case</span>
+  </div>
+</div>
+
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg', svg=document.getElementById('d'), info=document.getElementById('info');
+var RX=150, RY=52, CXL=420, CXR=940;
+var DEFAULT='Hover or tap an actor or a use case to isolate its lines. Tap again to reset.';
+
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+
+var UCS=[
+ {id:1,s:'L',y:260,n:'Manage Users, Departments and Roles',t:['Manage Users, Departments','and Roles']},
+ {id:2,s:'L',y:420,n:'Register and Update Asset',t:['Register and Update Asset']},
+ {id:11,s:'L',y:570,n:'Classify Asset with AI',t:['Classify Asset with AI'],opt:2},
+ {id:4,s:'L',y:740,n:'Search and Filter Assets',t:['Search and Filter Assets']},
+ {id:12,s:'L',y:890,n:'Review Ranked Matches',t:['Review Ranked Matches'],opt:4},
+ {id:5,s:'L',y:1060,n:'Submit and Track Resource Request',t:['Submit and Track','Resource Request']},
+ {id:7,s:'L',y:1210,n:'Review and Approve/Reject Request',t:['Review and Approve/','Reject Request']},
+ {id:6,s:'L',y:1360,n:'Reserve Asset',t:['Reserve Asset'],opt:7},
+ {id:3,s:'R',y:300,n:'Publish Surplus Asset',t:['Publish Surplus Asset']},
+ {id:8,s:'R',y:470,n:'Transfer Asset and Confirm Receipt',t:['Transfer Asset and','Confirm Receipt']},
+ {id:9,s:'R',y:650,n:'Record Inspection, Maintenance and Life-Cycle History',t:['Record Inspection,','Maintenance and','Life-Cycle History']},
+ {id:10,s:'R',y:830,n:'Record Refurbishment, Donation, Recycling, Retirement or Disposal',t:['Record Refurbishment,','Donation, Recycling,','Retirement or Disposal']},
+ {id:13,s:'R',y:1010,n:'Review Sustainable-Action Recommendation',t:['Review Sustainable-Action','Recommendation']},
+ {id:14,s:'R',y:1180,n:'Use Natural-Language Assistant',t:['Use Natural-Language','Assistant']},
+ {id:15,s:'R',y:1350,n:'Generate Operational and Sustainability Reports, Including AI Summaries',t:['Generate Operational and','Sustainability Reports,','Including AI Summaries']}
+];
+var ACTS=[
+ {id:'sa',n:'System Administrator',t:['System','Administrator'],s:'L',y:290},
+ {id:'ac',n:'Asset Custodian',t:['Asset','Custodian'],s:'L',y:520},
+ {id:'dr',n:'Department Representative',t:['Department','Representative'],s:'L',y:780},
+ {id:'rq',n:'Requester',t:['Requester'],s:'L',y:1040},
+ {id:'ms',n:'Maintenance Staff',t:['Maintenance','Staff'],s:'L',y:1300},
+ {id:'ai',n:'External AI Service',t:['External AI','Service'],s:'R',y:420},
+ {id:'ua',n:'University Approver',t:['University','Approver'],s:'R',y:760},
+ {id:'so',n:'Sustainability Officer',t:['Sustainability','Officer'],s:'R',y:1120},
+ {id:'pf',n:'Procurement and Finance Officer',t:['Procurement and','Finance Officer'],s:'R',y:1330}
+];
+var ucBy={},acBy={};UCS.forEach(function(u){ucBy[u.id]=u;u.cx=u.s==='L'?CXL:CXR});
+ACTS.forEach(function(a){acBy[a.id]=a;a.x=a.s==='L'?75:1265;a.fx=a.s==='L'?a.x+22:a.x-22});
+
+var LINKS=[];
+function P(u){for(var i=1;i<arguments.length;i++)LINKS.push({a:arguments[i],u:u,p:true})}
+function S(u){for(var i=1;i<arguments.length;i++)LINKS.push({a:arguments[i],u:u,p:false})}
+P(1,'sa');S(1,'ua');
+P(2,'ac','dr');S(2,'ai');
+P(3,'dr');S(3,'ac','ua');
+P(4,'rq','dr');S(4,'ai');
+P(5,'rq','dr');S(5,'ua');
+P(6,'ua');S(6,'rq','ac');
+P(7,'ua');S(7,'rq','ac');
+P(8,'ac','dr');S(8,'ua');
+P(9,'ac','ms');S(9,'ua');
+P(10,'ac');S(10,'ua','ms');
+P(11,'ac');S(11,'ai');
+P(12,'rq');S(12,'ai');
+P(13,'ac','ua');S(13,'ms','pf','so','ai');
+P(14,'dr','rq','ac','ua','ms','pf','so','sa');S(14,'ai');
+P(15,'pf','so','sa');S(15,'ai');
+
+/* ---------- routing ---------- */
+LINKS.forEach(function(l){l.act=acBy[l.a];l.uc=ucBy[l.u];l.cross=l.act.s!==l.uc.s});
+
+/* entry offsets on the oval edge, grouped by use case and side */
+var grp={};
+LINKS.forEach(function(l){var k=l.u+l.act.s;(grp[k]=grp[k]||[]).push(l)});
+Object.keys(grp).forEach(function(k){var g=grp[k];g.sort(function(a,b){return a.act.y-b.act.y});
+  g.forEach(function(l,i){l.off=(i-(g.length-1)/2)*10})});
+
+/* channels: horizontal runs in the free band between rows, in the actor's own column */
+function gapsFor(side){var rows=UCS.filter(function(u){return u.s===side}).sort(function(a,b){return a.y-b.y}),g=[];
+  for(var i=0;i<rows.length-1;i++){var ext=rows[i+1].opt&&rows[i+1].opt===rows[i].id;
+    if(!ext&&!(rows[i].opt&&rows[i].opt===rows[i+1].id))g.push({y:(rows[i].y+rows[i+1].y)/2,ls:[]})}
+  return g}
+var GAPS={L:gapsFor('L'),R:gapsFor('R')};
+LINKS.filter(function(l){return l.cross}).sort(function(a,b){return a.uc.y-b.uc.y}).forEach(function(l){
+  var g=GAPS[l.act.s].slice().sort(function(a,b){return Math.abs(a.y-l.uc.y)-Math.abs(b.y-l.uc.y)});
+  var pick=g.filter(function(x){return x.ls.length<6})[0];pick.ls.push(l);l.gap=pick});
+['L','R'].forEach(function(s){GAPS[s].forEach(function(g){g.ls.sort(function(a,b){return a.uc.y-b.uc.y});
+  g.ls.forEach(function(l,i){l.yc=g.y+(i-(g.ls.length-1)/2)*7})})});
+
+/* vertical lanes beside the column, ordered to minimise crossings */
+function perms(a){if(a.length<2)return[a];var r=[];a.forEach(function(x,i){perms(a.slice(0,i).concat(a.slice(i+1))).forEach(function(p){r.push([x].concat(p))})});return r}
+var LANE={};
+['L','R'].forEach(function(side){
+  var as=ACTS.filter(function(a){return a.s===side}),span={},runs={};
+  as.forEach(function(a){var ys=[a.y];runs[a.id]=[];
+    LINKS.forEach(function(l){if(l.a===a.id){var y=l.cross?l.yc:l.uc.y;ys.push(y);runs[a.id].push(y)}});
+    span[a.id]=[Math.min.apply(null,ys),Math.max.apply(null,ys)]});
+  var best=null,bc=1e9;
+  perms(as.map(function(a){return a.id})).forEach(function(order){
+    var c=0;order.forEach(function(i,ci){
+      order.forEach(function(j,cj){if(i===j)return;
+        var sp=span[j];
+        if(cj<ci&&acBy[i].y>sp[0]&&acBy[i].y<sp[1])c++;
+        if(cj>ci)runs[i].forEach(function(y){if(y>sp[0]&&y<sp[1])c++})})});
+    if(c<bc){bc=c;best=order}});
+  best.forEach(function(id,ci){LANE[id]=side==='L'?190+ci*17:1165-ci*17});
+});
+
+/* mid-gap lanes for links that cross between columns */
+var mk=0;
+LINKS.filter(function(l){return l.cross&&l.act.s==='R'}).concat(LINKS.filter(function(l){return l.cross&&l.act.s==='L'}))
+  .forEach(function(l){l.mx=590+mk*7.5;mk++});
+
+function rounded(pts,r){
+  var q=[pts[0]];for(var i=1;i<pts.length;i++){if(pts[i][0]!==q[q.length-1][0]||pts[i][1]!==q[q.length-1][1])q.push(pts[i])}
+  var d='M'+q[0][0]+' '+q[0][1];
+  for(var i=1;i<q.length-1;i++){var a=q[i-1],b=q[i],c=q[i+1];
+    var d1=Math.hypot(b[0]-a[0],b[1]-a[1]),d2=Math.hypot(c[0]-b[0],c[1]-b[1]),rr=Math.min(r,d1/2,d2/2);
+    d+=' L'+(b[0]-(b[0]-a[0])/d1*rr).toFixed(1)+' '+(b[1]-(b[1]-a[1])/d1*rr).toFixed(1)+
+       ' Q'+b[0]+' '+b[1]+' '+(b[0]+(c[0]-b[0])/d2*rr).toFixed(1)+' '+(b[1]+(c[1]-b[1])/d2*rr).toFixed(1)}
+  var z=q[q.length-1];return d+' L'+z[0].toFixed(1)+' '+z[1].toFixed(1)}
+
+/* ---------- drawing ---------- */
+el('rect',{class:'boundary',x:150,y:20,width:1045,height:1460,rx:34},svg);
+var t=el('text',{class:'sys',x:672,y:72},svg);t.textContent='Intelligent AI-Powered Circular Campus Resource Exchange';
+t=el('text',{class:'sys',x:672,y:102},svg);t.textContent='and Asset Life Cycle Management System';
+
+var gl=el('g',{},svg);
+LINKS.forEach(function(l){
+  var a=l.act,u=l.uc,ty=u.y+l.off,k=Math.sqrt(1-Math.pow(l.off/RY,2)),ln=LANE[a.id],pts;
+  var ex=a.s==='L'?u.cx-RX*k:u.cx+RX*k;
+  if(!l.cross)pts=[[a.fx,a.y],[ln,a.y],[ln,ty],[ex,ty]];
+  else pts=[[a.fx,a.y],[ln,a.y],[ln,l.yc],[l.mx,l.yc],[l.mx,ty],[ex,ty]];
+  l.el=el('path',{class:'link a-'+a.id+' '+(l.p?'p':'s'),d:rounded(pts,7)},gl);
+});
+
+UCS.forEach(function(u){if(u.opt){var p=ucBy[u.opt],up=p.y<u.y;
+  var y1=up?u.y-RY:u.y+RY,y2=up?p.y+RY+3:p.y-RY-3;
+  el('line',{class:'ext',x1:u.cx,y1:y1,x2:u.cx,y2:y2,'marker-end':'url(#ah)'},svg);
+  var tx=el('text',{class:'ext-tx',x:u.cx+10,y:(y1+y2)/2+5},svg);tx.textContent='«extend»'}});
+var defs=el('defs',{},svg),mr=el('marker',{id:'ah',markerWidth:10,markerHeight:10,refX:8,refY:5,orient:'auto'},defs);
+el('path',{d:'M1 1 L9 5 L1 9',fill:'none',stroke:'var(--muted)','stroke-width':1.6},mr);
+
+var nodes=[];
+UCS.forEach(function(u){
+  var g=el('g',{class:'node uc'+(u.opt?' opt':''),tabindex:0,role:'button','aria-label':'UC-'+('0'+u.id).slice(-2)+' '+u.n},svg);
+  el('ellipse',{class:'oval',cx:u.cx,cy:u.y,rx:RX,ry:RY},g);
+  el('ellipse',{class:'hit',cx:u.cx,cy:u.y,rx:RX,ry:RY},g);
+  var n=u.t.length,y0=u.y-(n*16+18)/2+14,x=el('text',{class:'uc-id',x:u.cx,y:y0+2},g);x.textContent='UC-'+('0'+u.id).slice(-2);
+  u.t.forEach(function(s,i){var tx=el('text',{class:'uc-tx',x:u.cx,y:y0+22+i*16.5},g);tx.textContent=s});
+  u.g=g;g._u=u;nodes.push(g)});
+ACTS.forEach(function(a){
+  var g=el('g',{class:'node act a-'+a.id,tabindex:0,role:'button','aria-label':a.n},svg),x=a.x,y=a.y,f=el('g',{class:'fig'},g);
+  el('circle',{class:'head',cx:x,cy:y-30,r:11},f);
+  [[x,y-19,x,y+12],[x-18,y-7,x+18,y-7],[x,y+12,x-15,y+34],[x,y+12,x+15,y+34]].forEach(function(c){el('line',{x1:c[0],y1:c[1],x2:c[2],y2:c[3]},f)});
+  a.t.forEach(function(s,i){var tx=el('text',{class:'act-tx',x:x,y:y+58+i*19},g);tx.textContent=s});
+  el('rect',{class:'hit',x:x-62,y:y-46,width:124,height:a.t.length*19+98},g);
+  a.g=g;g._a=a;nodes.push(g)});
+
+/* ---------- interaction ---------- */
+function ids(list){return list.map(function(u){return 'UC-'+('0'+u).slice(-2)}).join(', ')}
+function describe(sel){
+  if(!sel)return DEFAULT;
+  if(sel.a){var a=acBy[sel.a],p=[],s=[];LINKS.forEach(function(l){if(l.a===a.id)(l.p?p:s).push(l.u)});
+    p.sort(function(x,y){return x-y});s.sort(function(x,y){return x-y});
+    return '<b>'+a.n+'</b>. Primary actor in '+(p.length?ids(p):'none')+(s.length?'. Supporting actor in '+ids(s):'')+'.'}
+  var u=ucBy[sel.u],p=[],s=[];LINKS.forEach(function(l){if(l.u===u.id)(l.p?p:s).push(l.act.n)});
+  return '<b>UC-'+('0'+u.id).slice(-2)+' '+u.n+'</b>. Primary: '+p.join(', ')+(s.length?'. Supporting: '+s.join(', '):'')+'.'}
+function show(sel){
+  info.innerHTML=describe(sel);
+  svg.classList.toggle('iso',!!sel);
+  var onA={},onU={};
+  LINKS.forEach(function(l){var on=!!sel&&((sel.a&&l.a===sel.a)||(sel.u&&l.u===sel.u));l.el.classList.toggle('on',on);if(on){onA[l.a]=1;onU[l.u]=1}});
+  nodes.forEach(function(g){var on=g._a?!!onA[g._a.id]:!!onU[g._u.id];g.classList.toggle('on',on)})}
+var pinned=null,hover=null;
+function key(s){return s?(s.a?'a'+s.a:'u'+s.u):''}
+function refresh(){show(hover||pinned)}
+nodes.forEach(function(g){
+  var sel=g._a?{a:g._a.id}:{u:g._u.id};
+  g.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hover=sel;refresh()}});
+  g.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){hover=null;refresh()}});
+  g.addEventListener('click',function(){pinned=key(pinned)===key(sel)?null:sel;hover=null;refresh()});
+  g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();g.dispatchEvent(new Event('click'))}});
+  g.addEventListener('focus',function(){hover=sel;refresh()});
+  g.addEventListener('blur',function(){hover=null;refresh()})});
+svg.addEventListener('click',function(e){if(e.target===svg||e.target.classList.contains('boundary')){pinned=null;hover=null;refresh()}});
+refresh();
+})();
+</script>
+
+</body></html>
